@@ -47,7 +47,7 @@ export const ResetPasswordForm = () => {
     <div className="w-full flex flex-col items-center justify-center gap-4 mt-8">
       <PageDescription
         title="Crie sua conta"
-        description="Cadastre-se para começar a utilizar as funcionalidades do NutriFast."
+        description="Cadastre-se para começar a utilizar as funcionalidades do NutriClinic."
       />
       <div className="w-full flex flex-col items-center justify-center gap-4 mt-7">
         <Form {...form}>

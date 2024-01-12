@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { PageDescription } from "@/components/designSystem/PageDescription";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   username: z.string({
@@ -28,6 +29,8 @@ const formSchema = z.object({
 });
 
 export const SignInForm = () => {
+  const router = useRouter();
+
   const [loading, setLoading] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -42,6 +45,7 @@ export const SignInForm = () => {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
+    router.replace("/nutritionist/home");
   }
 
   //   const handleSignIn = async (value: z.infer<typeof formSchema>) => {

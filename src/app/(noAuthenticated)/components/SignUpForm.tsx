@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { PageDescription } from "@/components/designSystem/PageDescription";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
   fullName: z.string({
@@ -46,7 +47,7 @@ const formSchema = z.object({
 
 export const SignUpForm = () => {
   const router = useRouter();
-
+  const { toast } = useToast();
   const [loading, setLoading] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -85,6 +86,11 @@ export const SignUpForm = () => {
     //   }
 
     console.log(values);
+    toast({
+      title: "Cadastro realizado com sucesso",
+      description:
+        "Sua senha foi alterada com sucesso. Entre agora para utilizar as facilidades do NutriClinic.",
+    });
     router.push(`/`);
   }
 
@@ -92,7 +98,7 @@ export const SignUpForm = () => {
     <div className="w-full flex flex-col items-center justify-center gap-4 mt-8">
       <PageDescription
         title="Crie sua conta"
-        description="Cadastre-se para começar a utilizar as funcionalidades do NutriFast."
+        description="Cadastre-se para começar a utilizar as funcionalidades do NutriClinic."
       />
       <div className="w-full flex flex-col items-center justify-center gap-4 mt-7">
         <Form {...form}>
