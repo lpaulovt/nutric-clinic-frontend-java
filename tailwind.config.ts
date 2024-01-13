@@ -56,6 +56,8 @@ module.exports = {
         white: "var(--white)",
         black: "var(--black)",
         gray500: "var(--gray-500)",
+        gray400: "var(--gray-400)",
+        gray100: "var(--gray-100)",
       },
       borderRadius: {
         lg: "var(--radius)",
