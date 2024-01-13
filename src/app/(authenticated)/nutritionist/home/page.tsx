@@ -1,7 +1,13 @@
+import { Header } from "./components/Header";
+import { MessagesSection } from "./components/MessagesSection";
+import { PatientsSection } from "./components/PatientsSection";
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      content nutritionist
+    <main className="flex flex-col w-full gap-8">
+      <Header />
+      <MessagesSection />
+      <PatientsSection />
     </main>
   );
 }
