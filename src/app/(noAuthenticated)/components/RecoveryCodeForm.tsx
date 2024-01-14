@@ -20,8 +20,8 @@ import { useRouter } from "next/navigation";
 import { PUBLIC_ROUTES } from "@/app/infrastructure/navigation";
 
 const formSchema = z.object({
-  code: z.string({
-    required_error: "Informe o seu email para efetuar o login",
+  code: z.string().min(1, {
+    message: "Informe o seu código.",
   }),
 });
 

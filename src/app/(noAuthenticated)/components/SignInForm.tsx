@@ -21,11 +21,16 @@ import { useRouter } from "next/navigation";
 import { PRIVATE_ROUTES, PUBLIC_ROUTES } from "@/app/infrastructure/navigation";
 
 const formSchema = z.object({
-  username: z.string({
-    required_error: "Informe o seu email para efetuar o login",
-  }),
-  password: z.string({
-    required_error: "Informe a senha para efetuar o login",
+  mail: z
+    .string()
+    .email({
+      message: "E-mail inválido",
+    })
+    .min(1, {
+      message: "Informe o seu email para efetuar o login",
+    }),
+  password: z.string().min(1, {
+    message: "Informe a senha para efetuar o login",
   }),
 });
 
@@ -37,7 +42,7 @@ export const SignInForm = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      mail: "",
       password: "",
     },
   });
@@ -78,7 +83,7 @@ export const SignInForm = () => {
           <form onSubmit={form.handleSubmit(onSubmit)} className="w-full gap">
             <FormField
               control={form.control}
-              name="username"
+              name="mail"
               render={({ field }) => (
                 <FormItem className="mb-4">
                   <FormLabel>E-mail</FormLabel>
@@ -103,14 +108,14 @@ export const SignInForm = () => {
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage className="flex flex-row justify-end text-[12px] font-regular">
-                    <Link
-                      className="text-brand "
-                      href={PUBLIC_ROUTES.FORGOT_PASSWORD}
-                    >
-                      Esqueceu sua senha?
-                    </Link>
-                  </FormMessage>
+                  <FormMessage />
+
+                  <Link
+                    className="text-brand flex flex-row justify-end text-[12px] font-regular"
+                    href={PUBLIC_ROUTES.FORGOT_PASSWORD}
+                  >
+                    Esqueceu sua senha?
+                  </Link>
                 </FormItem>
               )}
             />

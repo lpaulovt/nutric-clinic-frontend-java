@@ -12,6 +12,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { PageDescription } from "@/components/designSystem/PageDescription";
@@ -19,32 +20,37 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { PUBLIC_ROUTES } from "@/app/infrastructure/navigation";
 
-const formSchema = z.object({
-  fullName: z.string({
-    required_error: "Informe o seu nome.",
-  }),
-  cpf: z.string({
-    required_error: "Informe o seu CPF.",
-  }),
-  email: z.string({
-    required_error: "Informe o seu e-mail.",
-  }),
-  phone: z.string({
-    required_error: "Informe o seu telefone.",
-  }),
-  specialty: z.string({
-    required_error: "Informe sua especialidade.",
-  }),
-  crn: z.string({
-    required_error: "Informe seu CRN.",
-  }),
-  password: z.string({
-    required_error: "Informe sua senha.",
-  }),
-  confirmPassword: z.string({
-    required_error: "Confirme sua senha.",
-  }),
-});
+const formSchema = z
+  .object({
+    fullName: z.string().min(1, {
+      message: "Informe o seu nome.",
+    }),
+    cpf: z.string().min(1, {
+      message: "Informe o seu CPF.",
+    }),
+    email: z.string().min(1, {
+      message: "Informe o seu e-mail.",
+    }),
+    phone: z.string().min(1, {
+      message: "Informe o seu telefone.",
+    }),
+    specialty: z.string().min(1, {
+      message: "Informe sua especialidade.",
+    }),
+    crn: z.string().min(1, {
+      message: "Informe seu CRN.",
+    }),
+    password: z.string().min(1, {
+      message: "Informe sua senha.",
+    }),
+    confirmPassword: z.string().min(1, {
+      message: "Confirme sua senha.",
+    }),
+  })
+  .refine(({ password, confirmPassword }) => password === confirmPassword, {
+    message: "As senhas devem ser iguais.",
+    path: ["confirmPassword"],
+  });
 
 export const SignUpForm = () => {
   const router = useRouter();
@@ -131,6 +137,7 @@ export const SignUpForm = () => {
                       {...field}
                     />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -148,6 +155,7 @@ export const SignUpForm = () => {
                       {...field}
                     />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -165,6 +173,7 @@ export const SignUpForm = () => {
                       {...field}
                     />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -178,6 +187,7 @@ export const SignUpForm = () => {
                   <FormControl className="mt-0">
                     <Input placeholder="Digite sua especialidade" {...field} />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -191,6 +201,7 @@ export const SignUpForm = () => {
                   <FormControl className="mt-0">
                     <Input placeholder="Digite seu CRN" {...field} />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -210,6 +221,7 @@ export const SignUpForm = () => {
                       {...field}
                     />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -227,6 +239,7 @@ export const SignUpForm = () => {
                       {...field}
                     />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />

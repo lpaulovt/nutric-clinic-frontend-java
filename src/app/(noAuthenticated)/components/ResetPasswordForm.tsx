@@ -9,23 +9,30 @@ import * as z from "zod";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { PageDescription } from "@/components/designSystem/PageDescription";
 import { useRouter } from "next/navigation";
 import { PUBLIC_ROUTES } from "@/app/infrastructure/navigation";
 
-const formSchema = z.object({
-  password: z.string({
-    required_error: "Informe sua senha.",
-  }),
-  confirmPassword: z.string({
-    required_error: "Confirme sua senha.",
-  }),
-});
+const formSchema = z
+  .object({
+    password: z.string().min(1, {
+      message: "Informe sua senha.",
+    }),
+    confirmPassword: z.string().min(1, {
+      message: "Confirme sua senha.",
+    }),
+  })
+  .refine(({ password, confirmPassword }) => password === confirmPassword, {
+    message: "As senhas devem ser iguais.",
+    path: ["confirmPassword"],
+  });
 
 export const ResetPasswordForm = () => {
   const router = useRouter();
@@ -66,6 +73,8 @@ export const ResetPasswordForm = () => {
                       {...field}
                     />
                   </FormControl>
+                  <FormDescription />
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -83,6 +92,8 @@ export const ResetPasswordForm = () => {
                       {...field}
                     />
                   </FormControl>
+                  <FormDescription />
+                  <FormMessage />
                 </FormItem>
               )}
             />

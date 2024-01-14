@@ -9,34 +9,14 @@ import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 import peopleIllustration from "@/assets/peopleIllustration.svg";
 import { PRIVATE_ROUTES } from "@/app/infrastructure/navigation";
+import { patientData } from "@/mock";
 
 export function PatientsSection() {
   const router = useRouter();
 
-  const data = [
-    {
-      showAge: true,
-      patient: {
-        name: "Paulo Vitor",
-        age: "21",
-        cpf: "123.123.123.123-12",
-        status: "ACTIVE",
-      } as IPatient,
-    },
-    {
-      showAge: true,
-      patient: {
-        name: "Caio Rafael",
-        age: "21",
-        cpf: "123.123.123.123-12",
-        status: "INACTIVE",
-      } as IPatient,
-    },
-  ];
-
   const filteredData = useMemo(() => {
-    return data?.slice(0, 5);
-  }, [data]);
+    return patientData?.slice(0, 5);
+  }, [patientData]);
 
   const handlePatientDetails = (patient: IPatient) => {
     console.log(patient);

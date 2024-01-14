@@ -91,7 +91,7 @@ const SideBar = ({}: SideBarProps) => {
             <div key={id} className="group  w-full h-9 ">
               <button
                 className={` w-full h-9 flex gap-2 items-center px-3 rounded-md py-0.5 transition-all ${
-                  currentPage === `/${route}` && "bg-brand"
+                  currentPage === route && "bg-brand"
                 } group-hover:bg-brand`}
                 onClick={handleOnClick}
               >
@@ -100,12 +100,12 @@ const SideBar = ({}: SideBarProps) => {
                   height={16}
                   width={16}
                   className={`${
-                    currentPage === `/${route}` ? "text-white" : "text-gray500"
+                    currentPage === route ? "text-white" : "text-gray500"
                   } transition-all group-hover:text-white`}
                 />
                 <span
                   className={`text-[14px] font-medium  transition-all ${
-                    currentPage === `/${route}` ? "text-white" : "text-gray500"
+                    currentPage === route ? "text-white" : "text-gray500"
                   } group-hover:text-white`}
                 >
                   {title}

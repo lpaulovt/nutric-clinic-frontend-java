@@ -1,7 +1,5 @@
-export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      content nutritionist patients
-    </main>
-  );
+import { ContentPatients } from "./components/ContentPatients";
+
+export default function Patients() {
+  return <ContentPatients />;
 }
