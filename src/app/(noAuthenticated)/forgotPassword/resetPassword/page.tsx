@@ -1,5 +1,5 @@
 import { ResetPasswordForm } from "../../components/ResetPasswordForm";
 
-export default function ResetPasswordScreen() {
+export default async function ResetPasswordScreen() {
   return <ResetPasswordForm />;
 }

@@ -4,7 +4,7 @@ import { MessagesSection } from "./components/MessagesSection";
 import { NextAppointmentsSection } from "./components/NextAppointmentsSection";
 import { PatientsSection } from "./components/PatientsSection";
 
-export default function Home() {
+export default async function HomeScreen() {
   return (
     <main className="flex flex-col w-full gap-8">
       <Header />

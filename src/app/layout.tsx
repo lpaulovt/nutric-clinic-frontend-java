@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description: "Sistema clínico para nutricionistas",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;

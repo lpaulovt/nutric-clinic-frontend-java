@@ -1,5 +1,5 @@
 import { RecoveryCodeForm } from "../../components/RecoveryCodeForm";
 
-export default function RecoveryCodeScreen() {
+export default async function RecoveryCodeScreen() {
   return <RecoveryCodeForm />;
 }

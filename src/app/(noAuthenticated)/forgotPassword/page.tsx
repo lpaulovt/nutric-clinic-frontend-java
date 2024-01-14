@@ -1,5 +1,5 @@
 import { EmailForm } from "../components/EmailForm";
 
-export default function ForgotPassword() {
+export default async function ForgotPassword() {
   return <EmailForm />;
 }

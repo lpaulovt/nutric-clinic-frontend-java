@@ -1,5 +1,5 @@
 import { ContentPatients } from "./components/ContentPatients";
 
-export default function Patients() {
+export default async function PatientsScreen() {
   return <ContentPatients />;
 }

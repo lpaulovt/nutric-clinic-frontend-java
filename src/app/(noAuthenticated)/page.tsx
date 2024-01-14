@@ -1,5 +1,5 @@
 import { SignInForm } from "./components/SignInForm";
 
-export default function SignInScreen() {
+export default async function SignInScreen() {
   return <SignInForm />;
 }
