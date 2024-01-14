@@ -17,6 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { PageDescription } from "@/components/designSystem/PageDescription";
 import { useRouter } from "next/navigation";
+import { PUBLIC_ROUTES } from "@/app/infrastructure/navigation";
 
 const formSchema = z.object({
   email: z.string({
@@ -39,7 +40,7 @@ export const EmailForm = () => {
     // ✅ This will be type-safe and validated.
     console.log("clicou");
     console.log(values);
-    router.push(`/forgotPassword/recoveryCode`);
+    router.push(PUBLIC_ROUTES.FORGOT_PASSWORD_RECOVERY_CODE);
   }
 
   //   const handleSignIn = async (value: z.infer<typeof formSchema>) => {

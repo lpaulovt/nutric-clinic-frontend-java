@@ -18,6 +18,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { PageDescription } from "@/components/designSystem/PageDescription";
 import { useRouter } from "next/navigation";
+import { PRIVATE_ROUTES, PUBLIC_ROUTES } from "@/app/infrastructure/navigation";
 
 const formSchema = z.object({
   username: z.string({
@@ -45,7 +46,7 @@ export const SignInForm = () => {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
-    router.replace("/nutritionist/home");
+    router.replace(PRIVATE_ROUTES.NUTRITIONIST_HOME);
   }
 
   //   const handleSignIn = async (value: z.infer<typeof formSchema>) => {
@@ -103,7 +104,10 @@ export const SignInForm = () => {
                     />
                   </FormControl>
                   <FormMessage className="flex flex-row justify-end text-[12px] font-regular">
-                    <Link className="text-brand " href="/forgotPassword">
+                    <Link
+                      className="text-brand "
+                      href={PUBLIC_ROUTES.FORGOT_PASSWORD}
+                    >
                       Esqueceu sua senha?
                     </Link>
                   </FormMessage>
@@ -119,7 +123,7 @@ export const SignInForm = () => {
 
         <Link
           className="text-xs inline-block self-end text-black"
-          href="/signUp"
+          href={PUBLIC_ROUTES.SIGN_UP}
         >
           Não possui conta?{" "}
           <span className="font-normal text-brand">Cadastre-se agora</span>

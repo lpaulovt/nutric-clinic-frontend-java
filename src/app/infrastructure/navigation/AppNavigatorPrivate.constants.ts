@@ -1,0 +1,16 @@
+export enum PRIVATE_ROUTES {
+  NUTRITIONIST_HOME = "/nutritionist/home",
+  NUTRITIONIST_PATIENTS = "/nutritionist/patients",
+  NUTRITIONIST_MESSAGE = "/nutritionist/messages",
+  NUTRITIONIST_CONSULTATIONS = "/nutritionist/consultations",
+  NUTRITIONIST_SCHEDULE = "/nutritionist/schedule",
+  NUTRITIONIST_SERVICE_LOCATIONS = "/nutritionist/serviceLocations",
+  NUTRITIONIST_PROFILE = "/nutritionist/profile",
+  PATIENT_HOME = "/patient/home",
+  PATIENT_CONSULTATIONS = "/patient/consultations",
+  PATIENT_DIET_PLAN = "/patient/dietPlan",
+  PATIENT_PRESCRIPTION = "/patient/prescription",
+  PATIENT_AVALIATION = "/patient/prescription",
+  PATIENT_ASSESSMENT = "/patient/assessment",
+  PATIENT_PROFILE = "/patient/profile",
+}

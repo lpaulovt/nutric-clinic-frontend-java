@@ -2,6 +2,7 @@
 import { usePathname, useRouter } from "next/navigation";
 import { Icon } from "./Icon";
 import dynamicIconImports from "lucide-react/dynamicIconImports";
+import { PRIVATE_ROUTES } from "@/app/infrastructure/navigation";
 
 interface SideBarProps {}
 
@@ -12,7 +13,7 @@ const SideBar = ({}: SideBarProps) => {
   const router = useRouter();
 
   const goToPage = (route: string) => {
-    router.push(`/${route}`);
+    router.push(route);
   };
 
   async function logout(route: string) {
@@ -27,43 +28,43 @@ const SideBar = ({}: SideBarProps) => {
     {
       id: 1,
       title: "Início",
-      route: "nutritionist/home",
+      route: PRIVATE_ROUTES.NUTRITIONIST_HOME,
       icon: "home",
     },
     {
       id: 2,
       title: "Pacientes",
-      route: "nutritionist/patients",
+      route: PRIVATE_ROUTES.NUTRITIONIST_PATIENTS,
       icon: "users",
     },
     {
       id: 5,
       title: "Recados",
-      route: "nutritionist/messages",
+      route: PRIVATE_ROUTES.NUTRITIONIST_MESSAGE,
       icon: "alert-circle",
     },
     {
       id: 6,
       title: "Consultas",
-      route: "nutritionist/consultations",
+      route: PRIVATE_ROUTES.NUTRITIONIST_CONSULTATIONS,
       icon: "calendar-heart",
     },
     {
       id: 7,
       title: "Agenda",
-      route: "nutritionist/schedule",
+      route: PRIVATE_ROUTES.NUTRITIONIST_SCHEDULE,
       icon: "calendar",
     },
     {
       id: 8,
       title: "Locais de atendimentos",
-      route: "nutritionist/serviceLocations",
+      route: PRIVATE_ROUTES.NUTRITIONIST_SERVICE_LOCATIONS,
       icon: "map-pin",
     },
     {
       id: 9,
       title: "Meu Perfil",
-      route: "nutritionist/profile",
+      route: PRIVATE_ROUTES.NUTRITIONIST_PROFILE,
       icon: "user",
     },
     {

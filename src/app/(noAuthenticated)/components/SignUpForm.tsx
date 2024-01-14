@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { PageDescription } from "@/components/designSystem/PageDescription";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
+import { PUBLIC_ROUTES } from "@/app/infrastructure/navigation";
 
 const formSchema = z.object({
   fullName: z.string({
@@ -88,10 +89,9 @@ export const SignUpForm = () => {
     console.log(values);
     toast({
       title: "Cadastro realizado com sucesso",
-      description:
-        "Sua senha foi alterada com sucesso. Entre agora para utilizar as facilidades do NutriClinic.",
+      description: "Entre agora para utilizar as facilidades do NutriClinic.",
     });
-    router.push(`/`);
+    router.push(PUBLIC_ROUTES.MAIN);
   }
 
   return (

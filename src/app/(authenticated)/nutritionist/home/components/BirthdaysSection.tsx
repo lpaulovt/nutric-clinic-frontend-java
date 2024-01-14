@@ -1,19 +1,16 @@
 "use client";
 
-import { CardMessage } from "@/components/designSystem/CardMessage";
+import { CardBirthday } from "@/components/designSystem/CardBirthday";
 import { Title } from "@/components/designSystem/Title";
 import { useMemo } from "react";
 
-export function MessagesSection() {
+export function BirthdaysSection() {
   const data = [
     {
       id: 1,
-      message: "Durante os dias 01/20 estarei abrindo a agenda para consultas.",
     },
     {
       id: 2,
-      message:
-        "Consultório em reforma, voltarei a atender na segunda-feira (23/12/2023)",
     },
   ];
 
@@ -27,10 +24,10 @@ export function MessagesSection() {
 
   return (
     <div className="flex flex-col gap-4">
-      <Title title="Recados" underlineWidth="100%" />
+      <Title title="Aniversariantes do mês " underlineWidth="50%" />
       <div className="flex flex-row gap-4 justify-start items-center">
         {filteredData.map((item) => (
-          <CardMessage key={item.id} {...item} />
+          <CardBirthday key={item.id} />
         ))}
       </div>
     </div>

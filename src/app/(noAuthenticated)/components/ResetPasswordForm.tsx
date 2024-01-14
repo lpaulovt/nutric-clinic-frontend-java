@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { PageDescription } from "@/components/designSystem/PageDescription";
 import { useRouter } from "next/navigation";
+import { PUBLIC_ROUTES } from "@/app/infrastructure/navigation";
 
 const formSchema = z.object({
   password: z.string({
@@ -40,7 +41,7 @@ export const ResetPasswordForm = () => {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
-    router.push(`/`);
+    router.push(PUBLIC_ROUTES.MAIN);
   }
 
   return (

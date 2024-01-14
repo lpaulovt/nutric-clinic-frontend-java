@@ -1,10 +1,14 @@
 "use client";
 
 import { IPatient } from "@/app/types/Patient";
+import { EmptyState } from "@/components/designSystem/EmptyState";
 import { PatientShortcut } from "@/components/designSystem/PatientShortcut";
 import { Title } from "@/components/designSystem/Title";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useMemo } from "react";
+import peopleIllustration from "@/assets/peopleIllustration.svg";
+import { PRIVATE_ROUTES } from "@/app/infrastructure/navigation";
 
 export function PatientsSection() {
   const router = useRouter();
@@ -30,18 +34,34 @@ export function PatientsSection() {
     },
   ];
 
+  const filteredData = useMemo(() => {
+    return data?.slice(0, 5);
+  }, [data]);
+
   const handlePatientDetails = (patient: IPatient) => {
     console.log(patient);
   };
 
   const handleNavigateToPatients = () => {
-    router.push(`/nutritionist/patients`);
+    router.push(PRIVATE_ROUTES.NUTRITIONIST_PATIENTS);
   };
+
+  if (filteredData?.length === 0)
+    return (
+      <EmptyState
+        imageSrc={peopleIllustration}
+        messageFirstPart="Você ainda não possui pacientes, "
+        messageLink="clique aqui"
+        messageLastPart=" para ir cadastrar um."
+        onClick={handleNavigateToPatients}
+      />
+    );
+
   return (
     <div className="flex flex-col gap-4">
       <Title title="Pacientes" underlineWidth="100%" />
       <div className="flex flex-row gap-5 justify-start items-center">
-        {data.map((item) => (
+        {filteredData.map((item) => (
           <PatientShortcut
             onClick={handlePatientDetails}
             key={item.patient.cpf}
