@@ -7,7 +7,7 @@ import { patientData } from "@/mock";
 import peopleIllustration from "@/assets/peopleIllustration.svg";
 import { PatientShortcut } from "@/components/designSystem/PatientShortcut";
 import { IPatient } from "@/app/types/Patient";
-import { RegisterModal } from "./RegisterModal";
+import { PatientModal } from "./PatientModal/PatientModal.component";
 import { useRouter } from "next/navigation";
 import { PRIVATE_ROUTES } from "@/app/infrastructure/navigation";
 
@@ -25,7 +25,7 @@ export function ContentPatients() {
         title="Pacientes"
         underlineWidth="50%"
         showRightButton
-        rightButton={<RegisterModal />}
+        rightButton={<PatientModal type="CREATE" />}
         onClick={() => {}}
       />
 
