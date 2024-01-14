@@ -55,6 +55,7 @@ module.exports = {
         brand: "var(--brand)",
         white: "var(--white)",
         black: "var(--black)",
+        indigo: "var(--indigo)",
         gray500: "var(--gray-500)",
         gray400: "var(--gray-400)",
         gray100: "var(--gray-100)",

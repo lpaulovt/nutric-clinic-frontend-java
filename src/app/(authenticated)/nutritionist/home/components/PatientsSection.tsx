@@ -18,12 +18,12 @@ export function PatientsSection() {
     return patientData?.slice(0, 5);
   }, [patientData]);
 
-  const handlePatientDetails = (patient: IPatient) => {
-    console.log(patient);
-  };
-
   const handleNavigateToPatients = () => {
     router.push(PRIVATE_ROUTES.NUTRITIONIST_PATIENTS);
+  };
+
+  const handlePatientDetails = (patient: IPatient) => {
+    router.push(`${PRIVATE_ROUTES.NUTRITIONIST_PATIENTS}/${patient.id}`);
   };
 
   if (filteredData?.length === 0)

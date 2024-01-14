@@ -72,7 +72,7 @@ export function PatientForm({ onSubmit, onClose, values }: FormProps) {
                       )}
                     >
                       {field.value ? (
-                        format(field.value, "PPP")
+                        format(field.value, "dd/MM/yyyy")
                       ) : (
                         <span>Informe sua data de nascimento</span>
                       )}

@@ -1,4 +1,4 @@
-import { ContentPatientDetails } from "../components/ContentPatientDetails";
+import { ContentPatientDetails } from "./ContentPatientDetails";
 
 export default async function PatientScreen() {
   return <ContentPatientDetails />;

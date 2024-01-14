@@ -4,12 +4,13 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { getInitialLetters } from "@/utils/getInitialLetters";
 import { Button } from "@/components/ui/button";
 import { LabelColumn } from "@/components/designSystem/LabelColumn";
+import { ChevronRight } from "lucide-react";
 
 export interface AppointmentProps {}
 
 export function Appointment({}: AppointmentProps) {
   return (
-    <div className="w-full flex flex-row justify-between items-center py-4 px-2 border-b border-b-gray100 hover:bg-gray100">
+    <div className="w-full flex flex-row justify-between items-center py-4 px-2 border-b border-b-gray100 cursor-pointer hover:bg-[#F5F5F5]">
       <div className="flex flex-row justify-start items-center gap-8">
         <div className="flex flex-row items-center gap-4">
           <Avatar className="w-[40px] h-[40px] bg-brand">
@@ -24,7 +25,7 @@ export function Appointment({}: AppointmentProps) {
         <LabelColumn label="Local" value="Consultório 1, São Miguel" />
       </div>
 
-      <Button variant={"ghost"}>Ver mais</Button>
+      <ChevronRight className="text-brand" />
     </div>
   );
 }

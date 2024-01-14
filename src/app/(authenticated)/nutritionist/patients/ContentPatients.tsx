@@ -7,7 +7,7 @@ import { patientData } from "@/mock";
 import peopleIllustration from "@/assets/peopleIllustration.svg";
 import { PatientShortcut } from "@/components/designSystem/PatientShortcut";
 import { IPatient } from "@/app/types/Patient";
-import { PatientModal } from "./PatientModal/PatientModal.component";
+import { PatientModal } from "./components/PatientModal/PatientModal.component";
 import { useRouter } from "next/navigation";
 import { PRIVATE_ROUTES } from "@/app/infrastructure/navigation";
 

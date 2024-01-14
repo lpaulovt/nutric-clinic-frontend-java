@@ -11,13 +11,13 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-import { PlusCircle, Settings2 } from "lucide-react";
+import { PlusCircle } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
-import { PatientModalProps, formSchema } from ".";
-import { PatientForm } from "./PatientModal.form";
+import { ModalProps, formSchema } from ".";
+import { AssessmentModalForm } from "./AssessmentModal.form";
 
-export function PatientModal({ type = "CREATE", values }: PatientModalProps) {
+export function AssessmentModal({ values }: ModalProps) {
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
 
@@ -29,39 +29,26 @@ export function PatientModal({ type = "CREATE", values }: PatientModalProps) {
     console.log(values);
 
     toast({
-      title: "Cadastro realizado com sucesso",
+      title: "Tudo certo!",
       description:
-        "Paciente cadastro com sucesso, agora você pode cadastrar plano alimentar, fazer receitas e inserir  avaliações antoprométicas",
+        "Avaliação antropométrica cadastrada com sucesso, acesse para visualizar",
     });
     handleShow();
-  };
-
-  const modalConfig = {
-    CREATE: {
-      icon: <PlusCircle className="text-brand" />,
-      title: "Cadastrar Paciente",
-      description: "Informe os dados do paciente.",
-    },
-    UPDATE: {
-      icon: <Settings2 className="text-brand" />,
-      title: "Editar dados pessoais",
-      description: "Edite os dados do paciente.",
-    },
   };
 
   return (
     <Dialog open={open}>
       <DialogTrigger asChild onClick={handleShow}>
-        {modalConfig[type].icon}
+        <PlusCircle className="text-indigo" />
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-[425px] max-h-[80%] overflow-scroll">
         <DialogHeader>
-          <DialogTitle>{modalConfig[type].title}</DialogTitle>
-          <DialogDescription>{modalConfig[type].description}</DialogDescription>
+          <DialogTitle>Criar avaliação antropométrica</DialogTitle>
+          <DialogDescription>Informe os dados da avaliação.</DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          <PatientForm
+          <AssessmentModalForm
             onSubmit={onSubmit}
             onClose={handleShow}
             values={values}
