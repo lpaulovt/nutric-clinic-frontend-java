@@ -1,6 +1,7 @@
 export interface ListItemProps {
   icon: React.ReactNode;
-  color: string;
+  iconBgColor?: string;
+  chevronColor?: string;
   onClick?: () => void;
   title: string;
   subtitle: string;

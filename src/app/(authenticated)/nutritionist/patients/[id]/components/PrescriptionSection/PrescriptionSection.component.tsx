@@ -13,28 +13,31 @@ export function PrescriptionSection() {
         underlineWidth="50%"
         showRightButton
         rightButton={<PrescriptionModal />}
-        underlineColor="[#3B82F6]"
+        underlineColor="bg-[#3B82F6]"
         onClick={() => {}}
       />
 
       <div className="flex flex-col">
         <ListItem
           icon={<FileHeart className="text-white" />}
-          color="[#3B82F6]"
+          iconBgColor="bg-[#3B82F6]"
+          chevronColor="text-[#3B82F6]"
           title="Receita para Franciso Júnior Silva"
           subtitle="13/12/2023"
         />
 
         <ListItem
           icon={<FileHeart className="text-white" />}
-          color="[#3B82F6]"
+          iconBgColor="bg-[#3B82F6]"
+          chevronColor="text-[#3B82F6]"
           title="Receita para Franciso Júnior Silva"
           subtitle="13/12/2023"
         />
 
         <ListItem
           icon={<FileHeart className="text-white" />}
-          color="[#3B82F6]"
+          iconBgColor="bg-[#3B82F6]"
+          chevronColor="text-[#3B82F6]"
           title="Receita para Franciso Júnior Silva"
           subtitle="13/12/2023"
         />

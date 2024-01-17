@@ -19,7 +19,8 @@ export function DietPlanSection() {
       <div className="flex flex-col">
         <ListItem
           icon={<PieChart className="text-white" />}
-          color="brand"
+          iconBgColor="bg-brand"
+          chevronColor="text-brand"
           title="Plano alimentar para Paulo"
           subtitle="Todos os dias"
           status={false}
@@ -27,14 +28,16 @@ export function DietPlanSection() {
 
         <ListItem
           icon={<PieChart className="text-white" />}
-          color="brand"
+          iconBgColor="bg-brand"
+          chevronColor="text-brand"
           title="Plano alimentar para Paulo"
           subtitle="Todos os dias"
         />
 
         <ListItem
           icon={<PieChart className="text-white" />}
-          color="brand"
+          iconBgColor="bg-brand"
+          chevronColor="text-brand"
           title="Plano alimentar para Paulo"
           subtitle="Todos os dias"
           status={true}

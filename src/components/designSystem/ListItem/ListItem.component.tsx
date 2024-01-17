@@ -8,7 +8,8 @@ import { ListItemProps } from ".";
 
 export function ListItem({
   icon,
-  color,
+  iconBgColor,
+  chevronColor,
   title,
   subtitle,
   status,
@@ -20,9 +21,11 @@ export function ListItem({
       {...props}
     >
       <div className="flex flex-row items-center gap-4">
-        <Avatar className={`w-[40px] h-[40px]`}>
-          <AvatarFallback className={`bg-${color}`}>{icon}</AvatarFallback>
-        </Avatar>
+        <div
+          className={`flex justify-center items-center w-[40px] h-[40px] rounded-full ${iconBgColor}`}
+        >
+          {icon}
+        </div>
 
         <LabelColumn label={title} value={subtitle} />
       </div>
@@ -30,7 +33,7 @@ export function ListItem({
         {status !== undefined && (
           <Status status={status ? "ACTIVE" : "INACTIVE"} />
         )}
-        <ChevronRight className={`text-${color} `} />
+        <ChevronRight className={` ${chevronColor} `} />
       </div>
     </div>
   );

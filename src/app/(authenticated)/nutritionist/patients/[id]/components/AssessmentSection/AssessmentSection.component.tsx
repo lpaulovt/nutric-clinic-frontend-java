@@ -20,21 +20,24 @@ export function AssessmentSection() {
       <div className="flex flex-col">
         <ListItem
           icon={<Ruler className="text-white" />}
-          color="[#6366F1]"
+          iconBgColor="bg-[#6366F1]"
+          chevronColor="text-[#6366F1]"
           title="Primeira Avaliação"
           subtitle="13/12/2023"
         />
 
         <ListItem
           icon={<Ruler className="text-white" />}
-          color="[#6366F1]"
+          iconBgColor="bg-[#6366F1]"
+          chevronColor="text-[#6366F1]"
           title="Primeira Avaliação"
           subtitle="13/12/2023"
         />
 
         <ListItem
           icon={<Ruler className="text-white" />}
-          color="[#6366F1]"
+          iconBgColor="bg-[#6366F1]"
+          chevronColor="text-[#6366F1]"
           title="Primeira Avaliação"
           subtitle="13/12/2023"
         />
