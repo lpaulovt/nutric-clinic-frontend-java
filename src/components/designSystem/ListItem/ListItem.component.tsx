@@ -13,6 +13,7 @@ export function ListItem({
   title,
   subtitle,
   status,
+  rightContent,
   ...props
 }: ListItemProps) {
   return (
@@ -29,12 +30,16 @@ export function ListItem({
 
         <LabelColumn label={title} value={subtitle} />
       </div>
-      <div className="flex flex-row gap-6 items-center">
-        {status !== undefined && (
-          <Status status={status ? "ACTIVE" : "INACTIVE"} />
-        )}
-        <ChevronRight className={` ${chevronColor} `} />
-      </div>
+      {rightContent ? (
+        rightContent
+      ) : (
+        <div className="flex flex-row gap-6 items-center">
+          {status !== undefined && (
+            <Status status={status ? "ACTIVE" : "INACTIVE"} />
+          )}
+          <ChevronRight className={` ${chevronColor} `} />
+        </div>
+      )}
     </div>
   );
 }

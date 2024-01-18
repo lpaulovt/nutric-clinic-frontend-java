@@ -53,6 +53,7 @@ module.exports = {
         },
 
         brand: "var(--brand)",
+        danger: "var(--danger)",
         white: "var(--white)",
         black: "var(--black)",
         indigo: "var(--indigo)",

@@ -6,9 +6,8 @@ export type TTypeForm = "CREATE" | "UPDATE";
 
 export interface FormSchema {
   name: string;
-  description: string;
-  observation: string;
-  weekDays: string[];
+  size: string;
+  quantity: string;
 }
 
 export interface FormProps {
@@ -17,7 +16,7 @@ export interface FormProps {
   values?: FormSchema;
 }
 
-export interface DietPlanModalProps {
+export interface ModalProps {
   type: TTypeForm;
   values?: FormSchema;
 }

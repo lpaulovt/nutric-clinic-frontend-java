@@ -3,6 +3,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { Icon } from "./Icon";
 import dynamicIconImports from "lucide-react/dynamicIconImports";
 import { PRIVATE_ROUTES } from "@/app/infrastructure/navigation";
+import { LogoutModal } from "./LogoutModal";
 
 interface SideBarProps {}
 
@@ -67,24 +68,13 @@ const SideBar = ({}: SideBarProps) => {
       route: PRIVATE_ROUTES.NUTRITIONIST_PROFILE,
       icon: "user",
     },
-    {
-      id: 11,
-      title: "Sair",
-      route: "logout",
-      icon: "log-out",
-      onClick: () => logout("/"),
-    },
   ];
 
   return (
     <nav className="mt-10 mb-10">
       <div className="w-full h-full flex flex-col gap-2 items-center justify-start border-r border-solid border-border px-5 ">
-        {nutricionistMenuOptions.map(({ title, route, icon, id, onClick }) => {
+        {nutricionistMenuOptions.map(({ title, route, icon, id }) => {
           function handleOnClick() {
-            if (route === "logout") {
-              return onClick && onClick();
-            }
-
             return goToPage(route);
           }
           return (
@@ -114,6 +104,8 @@ const SideBar = ({}: SideBarProps) => {
             </div>
           );
         })}
+
+        <LogoutModal onLogout={() => logout("/")} />
       </div>
     </nav>
   );

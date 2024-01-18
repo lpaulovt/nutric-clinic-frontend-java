@@ -7,7 +7,7 @@ export interface LabelColumnProps {
 
 export function LabelColumn({ label, value }: LabelColumnProps) {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col items-start">
       <h1 className="text-[16px] text-black font-semibold">{label}</h1>
       <span className="text-[12px] text-gray400 font-regular">{value}</span>
     </div>

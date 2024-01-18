@@ -14,10 +14,10 @@ import {
 import { PlusCircle, Settings2 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
-import { DietPlanModalProps, formSchema } from ".";
-import { DietPlanForm } from "./DietPlanModal.form";
+import { ModalProps, formSchema } from ".";
+import { MealForm } from "./MealModal.form";
 
-export function DietPlanModal({ values, type }: DietPlanModalProps) {
+export function MealModal({ values, type }: ModalProps) {
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
 
@@ -30,8 +30,7 @@ export function DietPlanModal({ values, type }: DietPlanModalProps) {
 
     toast({
       title: "Tudo pronto!",
-      description:
-        "Plano alimentar cadastrado com sucesso, acesse para detalhar",
+      description: "Refeição cadastrada com sucesso.",
     });
     handleShow();
   };
@@ -39,13 +38,13 @@ export function DietPlanModal({ values, type }: DietPlanModalProps) {
   const modalConfig = {
     CREATE: {
       icon: <PlusCircle className="text-brand" />,
-      title: "Criar plano alimentare",
-      description: "Informe o nome do plano e uma observação.",
+      title: "Cadastrar refeição",
+      description: "Informe os dados da refeição",
     },
     UPDATE: {
       icon: <Settings2 className="text-brand" />,
-      title: "Editar plano alimentar",
-      description: "Informe o nome do plano e uma observação.",
+      title: "Editar refeição",
+      description: "Informe os dados da refeição",
     },
   };
 
@@ -61,11 +60,7 @@ export function DietPlanModal({ values, type }: DietPlanModalProps) {
           <DialogDescription>{modalConfig[type].description}</DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          <DietPlanForm
-            onSubmit={onSubmit}
-            onClose={handleShow}
-            values={values}
-          />
+          <MealForm onSubmit={onSubmit} onClose={handleShow} values={values} />
         </div>
       </DialogContent>
     </Dialog>

@@ -17,14 +17,14 @@ export function Title({
   className,
   underlineWidth = "60%",
   showRightButton,
-  underlineColor = "brand",
+  underlineColor = "after:bg-brand",
   rightButton,
   onClick,
 }: TitleProps) {
   return (
     <div className="flex flex-row gap-1 items-center">
       <h1
-        className={`font-semibold text-[24px] after:block w-fit after:h-[3px] after:w-[${underlineWidth}] after:bg-${underlineColor}  mb-2 ${className}`}
+        className={`font-semibold text-[24px] after:block w-fit after:h-[3px] after:w-[${underlineWidth}] ${underlineColor}  mb-2 ${className}`}
       >
         {title}
       </h1>

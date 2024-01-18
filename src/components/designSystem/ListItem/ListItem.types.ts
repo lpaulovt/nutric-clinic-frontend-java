@@ -6,4 +6,5 @@ export interface ListItemProps {
   title: string;
   subtitle: string;
   status?: boolean;
+  rightContent?: React.ReactNode;
 }
