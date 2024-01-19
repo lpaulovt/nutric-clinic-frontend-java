@@ -4,8 +4,10 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { getInitialLetters } from "@/utils/getInitialLetters";
 import { LabelColumn } from "@/components/designSystem/LabelColumn";
 import { ChevronRight } from "lucide-react";
-
-export interface AppointmentProps {}
+import { AppointmentProps } from "./Appointment.types";
+import { Status } from "@/components/designSystem/Status";
+import { Button } from "@/components/ui/button";
+import { FinishModal } from "../FinishModal";
 
 export function Appointment({}: AppointmentProps) {
   return (
@@ -22,9 +24,17 @@ export function Appointment({}: AppointmentProps) {
 
         <LabelColumn label="Horário" value="13:00" />
         <LabelColumn label="Local" value="Consultório 1, São Miguel" />
-      </div>
 
-      <ChevronRight className="text-brand" />
+        <Status status="ACTIVE" />
+      </div>
+      <div className="flex flex-row items-center gap-2">
+        <Button variant={"ghost"}>Ver mais</Button>
+        <FinishModal
+          title="Tem certeza que deseja finalizar a consulta? "
+          subtitle="Isso ira mudar o status da consulta para finalizado."
+          onConfirm={() => {}}
+        />
+      </div>
     </div>
   );
 }

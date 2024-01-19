@@ -1,2 +1,2 @@
 export * from "./DeleteModal.component";
-export * from "./ViewModal.types";
+export * from "./DeleteModal.types";

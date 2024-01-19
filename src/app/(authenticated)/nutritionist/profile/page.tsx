@@ -1,7 +1,5 @@
+import { Content } from "./Content";
+
 export default async function ProfileScreen() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      content nutritionist profile
-    </main>
-  );
+  return <Content />;
 }
