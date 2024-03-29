@@ -4,8 +4,8 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { getInitialLetters } from "@/utils/getInitialLetters";
 
 export interface GreetingsProps {
-  name: string;
-  crn: string;
+  name?: string;
+  crn?: string;
 }
 
 export function Greetings({ name, crn }: GreetingsProps) {
@@ -13,7 +13,7 @@ export function Greetings({ name, crn }: GreetingsProps) {
     <div className="flex flex-row items-center gap-2">
       <Avatar className="w-[60px] h-[60px] bg-brand">
         <AvatarFallback className="text-white bg-brand">
-          {getInitialLetters(name)}
+          {getInitialLetters(name || "")}
         </AvatarFallback>
       </Avatar>
       <div className="flex flex-col gap-1">

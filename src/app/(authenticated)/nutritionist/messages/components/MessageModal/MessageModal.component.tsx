@@ -16,23 +16,36 @@ import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
 import { ModalProps, formSchema } from ".";
 import { MessageForm } from "./MessageModal.form";
+import { useCreateMessage } from "@/app/services/messages/useCreate";
+import { ErrorHandler } from "@/utils/errorHandler";
+import { useAuth } from "@/app/(authenticated)/hooks/useAuth";
 
-export function MessageModal({ values, type }: ModalProps) {
+export function MessageModal({ values, type, postAction }: ModalProps) {
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
-
+  const { id } = useAuth();
+  const { mutateAsync: createMessage } = useCreateMessage();
   const handleShow = () => {
     setOpen((value) => !value);
   };
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      await createMessage({
+        message: values.description,
+        user: id,
+      });
 
-    toast({
-      title: "Tudo pronto!",
-      description: "Recado cadastrado com sucesso.",
-    });
-    handleShow();
+      postAction && postAction();
+
+      toast({
+        title: "Tudo pronto!",
+        description: "Recado cadastrado com sucesso.",
+      });
+      handleShow();
+    } catch (error) {
+      ErrorHandler(error);
+    }
   };
 
   const modalConfig = {

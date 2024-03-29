@@ -19,6 +19,9 @@ import { Input } from "@/components/ui/input";
 import { PageDescription } from "@/components/designSystem/PageDescription";
 import { useRouter } from "next/navigation";
 import { PRIVATE_ROUTES, PUBLIC_ROUTES } from "@/app/infrastructure/navigation";
+import { toast } from "@/components/ui/use-toast";
+import { signIn } from "next-auth/react";
+import { Spin } from "@/components/designSystem/Spin";
 
 const formSchema = z.object({
   mail: z
@@ -47,29 +50,34 @@ export const SignInForm = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setLoading(true);
+    const result = await signIn("credentials", {
+      username: values.mail,
+      password: values.password,
+      redirect: false,
+    });
+
+    if (result?.error) {
+      const error = JSON.parse(result.error);
+      const errorMessage =
+        error.status === 401
+          ? "Credenciais inválidas."
+          : "Algo deu errado, tente novamente.";
+
+      toast({
+        title: "Ops!",
+        description: errorMessage,
+        variant: "destructive",
+      });
+
+      setLoading(false);
+      return;
+    }
+
     console.log(values);
-    router.replace(PRIVATE_ROUTES.NUTRITIONIST_HOME);
+    router.replace(PRIVATE_ROUTES.INITIAL);
   }
-
-  //   const handleSignIn = async (value: z.infer<typeof formSchema>) => {
-  //     setLoading(true)
-  //     const result = await signIn('credentials', {
-  //       username: value.username,
-  //       password: value.password,
-  //       redirect: false,
-  //     })
-
-  //     if (result?.error) {
-  //       setLoading(false)
-  //       return
-  //     }
-
-  //     router.replace('/home')
-  //     setLoading(false)
-  //   }
 
   return (
     <div className="w-full flex flex-col items-center justify-center gap-4 mt-8">
@@ -121,7 +129,7 @@ export const SignInForm = () => {
             />
 
             <Button className="w-full mt-4" type="submit">
-              Continuar
+              {loading ? <Spin /> : "Continuar"}
             </Button>
           </form>
         </Form>

@@ -2,25 +2,12 @@
 
 import { Title } from "@/components/designSystem/Title";
 import { MessageModal } from "./components/MessageModal";
-import {
-  CardMessage,
-  CardMessageProps,
-} from "@/components/designSystem/CardMessage";
+import { CardMessage } from "@/components/designSystem/CardMessage";
+import { useFindAllMessages } from "@/app/services/messages/useFindAll";
+import { Spin } from "@/components/designSystem/Spin";
 
 export function ContentMessages() {
-  const data = [
-    {
-      id: 1,
-      message: "Durante os dias 01/20 estarei abrindo a agenda para consultas.",
-      type: "DELETE",
-    },
-    {
-      id: 2,
-      message:
-        "Consultório em reforma, voltarei a atender na segunda-feira (23/12/2023)",
-      type: "DELETE",
-    },
-  ] as CardMessageProps[];
+  const { data, isLoading, refetch } = useFindAllMessages();
 
   return (
     <main className="flex flex-col w-full gap-6">
@@ -28,15 +15,27 @@ export function ContentMessages() {
         title="Recados"
         underlineWidth="50%"
         showRightButton
-        rightButton={<MessageModal type="CREATE" />}
+        rightButton={<MessageModal type="CREATE" postAction={refetch} />}
         onClick={() => {}}
       />
 
-      <div className="w-full flex flex-row flex-wrap gap-4">
-        {data?.map((item) => (
-          <CardMessage key={item.id} {...item} />
-        ))}
-      </div>
+      {!isLoading && (
+        <div className="w-full flex flex-row flex-wrap gap-4">
+          {data?.map((item) => (
+            <CardMessage
+              key={item.id}
+              message={item.message}
+              id={item.id}
+              type="DELETE"
+              postAction={refetch}
+            />
+          ))}
+
+          {data?.length === 0 && <p>Não há recados cadastrados ainda.</p>}
+        </div>
+      )}
+
+      {isLoading && <Spin />}
     </main>
   );
 }

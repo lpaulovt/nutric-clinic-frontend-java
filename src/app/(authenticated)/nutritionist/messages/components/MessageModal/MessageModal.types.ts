@@ -17,4 +17,5 @@ export interface FormProps {
 export interface ModalProps {
   type: TTypeForm;
   values?: FormSchema;
+  postAction?: () => void;
 }

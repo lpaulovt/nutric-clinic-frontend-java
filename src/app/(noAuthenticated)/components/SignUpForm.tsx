@@ -19,6 +19,10 @@ import { PageDescription } from "@/components/designSystem/PageDescription";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { PUBLIC_ROUTES } from "@/app/infrastructure/navigation";
+import { useCreateProfile } from "@/app/services/profiles/useCreate";
+import { ErrorHandler } from "@/utils/errorHandler";
+import { CreateUserProfile } from "@/app/types/Profile";
+import { ProfileTypeEnum } from "@/app/types/User";
 
 const formSchema = z
   .object({
@@ -55,8 +59,8 @@ const formSchema = z
 export const SignUpForm = () => {
   const router = useRouter();
   const { toast } = useToast();
-  const [loading, setLoading] = useState<boolean>(false);
 
+  const { mutateAsync: createProfile, isLoading } = useCreateProfile();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -71,33 +75,28 @@ export const SignUpForm = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-
-    //   const handleSignIn = async (value: z.infer<typeof formSchema>) => {
-    //     setLoading(true)
-    //     const result = await signIn('credentials', {
-    //       username: value.username,
-    //       password: value.password,
-    //       redirect: false,
-    //     })
-
-    //     if (result?.error) {
-    //       setLoading(false)
-    //       return
-    //     }
-
-    //     router.replace('/home')
-    //     setLoading(false)
-    //   }
-
-    console.log(values);
-    toast({
-      title: "Cadastro realizado com sucesso",
-      description: "Entre agora para utilizar as facilidades do NutriClinic.",
-    });
-    router.push(PUBLIC_ROUTES.MAIN);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      const requestData = {
+        fullName: values.fullName,
+        cpf: values.cpf,
+        email: values.email,
+        password: values.password,
+        phone: values.phone,
+        specialty: values.specialty,
+        crn: values.crn,
+        type: ProfileTypeEnum.nutritionist,
+      } as Partial<CreateUserProfile>;
+      const response = await createProfile(requestData);
+      console.log("Create user:", response);
+      toast({
+        title: "Cadastro realizado com sucesso",
+        description: "Entre agora para utilizar as facilidades do NutriClinic.",
+      });
+      router.push(PUBLIC_ROUTES.MAIN);
+    } catch (error) {
+      ErrorHandler(error);
+    }
   }
 
   return (
@@ -244,7 +243,7 @@ export const SignUpForm = () => {
               )}
             />
 
-            <Button className="w-full mt-4" type="submit">
+            <Button disabled={isLoading} className="w-full mt-4" type="submit">
               Continuar
             </Button>
           </form>
