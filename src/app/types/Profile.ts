@@ -1,11 +1,17 @@
 import Entity from "./Entity";
 import User from "./User";
 
+export const GenderEnum: any = {
+  male: "Masculino",
+  female: "Feminino",
+  other: "Outro",
+};
+
 export default interface Profile extends Entity {
   fullName?: string;
   cpf: string;
-  dateOfBirth: string;
-  gender: "male" | "female" | "other";
+  dateOfBirth: Date;
+  gender: string;
   email: string;
   password: string;
   phone: string;

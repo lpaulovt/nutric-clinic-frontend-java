@@ -31,7 +31,7 @@ export function ServiceLocationForm({ onSubmit, onClose, values }: FormProps) {
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full gap">
         <FormField
           control={form.control}
-          name="fullName"
+          name="full_name"
           render={({ field }) => (
             <FormItem className="mb-4">
               <FormLabel>Nome completo</FormLabel>
@@ -45,7 +45,7 @@ export function ServiceLocationForm({ onSubmit, onClose, values }: FormProps) {
 
         <FormField
           control={form.control}
-          name="zipcode"
+          name="cep"
           render={({ field }) => (
             <FormItem className="mb-4">
               <FormLabel>CEP</FormLabel>

@@ -16,23 +16,45 @@ import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
 import { ModalProps, formSchema } from ".";
 import { FormComponent } from "./ScheduleModal.form";
+import { ErrorHandler } from "@/utils/errorHandler";
+import { useCreateSchedule } from "@/app/services/schedule/useCreate";
+import { useAuth } from "@/app/(authenticated)/hooks/useAuth";
+import { formatDateUs } from "@/utils/formatDate";
 
-export function ScheduleModal({ type = "CREATE", values }: ModalProps) {
+export function ScheduleModal({
+  type = "CREATE",
+  values,
+  postAction,
+}: ModalProps) {
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
+  const { id } = useAuth();
+  const { mutateAsync: createSchedule } = useCreateSchedule();
 
   const handleShow = () => {
     setOpen((value) => !value);
   };
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log(values);
 
-    toast({
-      title: "Tudo pronto!",
-      description: "Agenda cadastrada com sucesso.",
-    });
-    handleShow();
+    try {
+      await createSchedule({
+        user: id,
+        date_appointments: formatDateUs(values.date_appointments),
+        service_location: values.serviceLocationId,
+        //schedules //TODO
+      });
+      toast({
+        title: "Tudo pronto!",
+        description: "Agenda cadastrada com sucesso.",
+      });
+      postAction && postAction();
+    } catch (error) {
+      ErrorHandler(error);
+    } finally {
+      handleShow();
+    }
   };
 
   const modalConfig = {

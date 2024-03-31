@@ -39,9 +39,11 @@ import {
 } from "@/components/ui/select";
 import { Tag } from "@/components/designSystem/Tag";
 import { useState } from "react";
+import { useFindAllAddress } from "@/app/services/address/useFindAll";
 
 export function FormComponent({ onSubmit, onClose, values }: FormProps) {
   const [value, setValue] = useState("");
+  const { data } = useFindAllAddress();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -53,7 +55,7 @@ export function FormComponent({ onSubmit, onClose, values }: FormProps) {
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full gap">
         <FormField
           control={form.control}
-          name="birthDate"
+          name="date_appointments"
           render={({ field }) => (
             <FormItem className="mb-4 flex flex-col w-full">
               <FormLabel>Data </FormLabel>
@@ -106,9 +108,11 @@ export function FormComponent({ onSubmit, onClose, values }: FormProps) {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="m@example.com">Local 1</SelectItem>
-                  <SelectItem value="m@google.com">Local 2</SelectItem>
-                  <SelectItem value="m@support.com">Local 3</SelectItem>
+                  {data?.results?.map((item) => (
+                    <SelectItem key={item.id} value={String(item.id)}>
+                      {item.full_name}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
               <FormDescription />

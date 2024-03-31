@@ -4,31 +4,11 @@ import { Title } from "@/components/designSystem/Title";
 
 import { ServiceLocationModal } from "./components/ServiceLocationModal";
 import { ServiceLocationItem } from "./components/ServiceLocationItem";
-import { IServiceLocation } from "@/app/types/ServiceLocation";
+import { useFindAllAddress } from "@/app/services/address/useFindAll";
+import { Spin } from "@/components/designSystem/Spin";
 
 export function Content() {
-  const data = [
-    {
-      id: 1,
-      fullName: "Consultório 1",
-      city: "São Miguel",
-      state: "RN",
-      zipcode: "59920-000",
-      neighborhood: "Centro",
-      street: "Rua Coronel",
-      number: "10",
-    },
-    {
-      id: 2,
-      fullName: "Consultório 2",
-      city: "São Miguel",
-      state: "RN",
-      zipcode: "59920-000",
-      neighborhood: "Centro",
-      street: "Rua Coronel",
-      number: "10",
-    },
-  ] as IServiceLocation[];
+  const { data, isLoading, refetch } = useFindAllAddress();
 
   return (
     <main className="flex flex-col w-full gap-6">
@@ -36,15 +16,27 @@ export function Content() {
         title="Locais de atendimento"
         underlineWidth="50%"
         showRightButton
-        rightButton={<ServiceLocationModal type="CREATE" />}
+        rightButton={
+          <ServiceLocationModal type="CREATE" postAction={() => refetch()} />
+        }
         onClick={() => {}}
       />
 
-      <div className="w-full flex flex-row flex-wrap">
-        {data?.map((item) => (
-          <ServiceLocationItem key={item.id} {...item} />
-        ))}
-      </div>
+      {!isLoading && (
+        <div className="w-full flex flex-row flex-wrap">
+          {data?.results?.map((item) => (
+            <ServiceLocationItem
+              key={item.id}
+              {...item}
+              postAction={() => refetch()}
+            />
+          ))}
+
+          {data?.count === 0 && <p>Não há endereços cadastrados ainda.</p>}
+        </div>
+      )}
+
+      {isLoading && <Spin />}
     </main>
   );
 }

@@ -2,17 +2,17 @@ import Profile from "@/app/types/Profile";
 import useAxiosAuth from "@/lib/hooks/useAxiosAuth";
 import { useQuery } from "@tanstack/react-query";
 
-export const useFindOneProfile = (courseId: number) => {
+export const useFindOneProfile = (profileId?: number) => {
   const axiosAuth = useAxiosAuth();
 
-  const fetchCourse = async (id: number) => {
-    const response = await axiosAuth.get(`/api/Profiles/${id}`);
+  const fetch = async () => {
+    const response = await axiosAuth.get(`/api/Profiles/${profileId}/`);
 
     return response.data;
   };
 
   return useQuery<Profile>({
-    queryKey: ["profile", courseId],
-    queryFn: () => fetchCourse(courseId),
+    queryKey: ["profile"],
+    queryFn: () => fetch(),
   });
 };

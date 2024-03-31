@@ -6,7 +6,7 @@ export const formSchema = z.object({
   serviceLocationId: z.string({
     required_error: "Informe o seu local",
   }),
-  birthDate: z.date({
+  date_appointments: z.date({
     required_error: "Informe sua data",
   }),
   time: z.array(z.string()).refine((value) => value.some((item) => item), {

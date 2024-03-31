@@ -5,60 +5,23 @@ import { Title } from "@/components/designSystem/Title";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { getInitialLetters } from "@/utils/getInitialLetters";
-import { MyDataModal } from "./components/MyDataModal";
 import { useFindOneProfile } from "@/app/services/profiles/useFindOne";
 import { useAuth } from "../../hooks/useAuth";
 import { Spin } from "@/components/designSystem/Spin";
 import { formatDate } from "@/utils/formatDate";
 import { GenderEnum } from "@/app/types/Profile";
-import { useMemo } from "react";
 
 export function Content() {
   const { profile } = useAuth();
 
   const { data, isLoading, refetch } = useFindOneProfile(profile?.id);
 
-  const defaultValues = {
-    fullName: "",
-    gender: "",
-    mail: "",
-    phone: "",
-    specialty: "",
-    crn: "",
-  };
-
-  const values = useMemo(() => {
-    if (!data) {
-      return defaultValues;
-    }
-
-    return {
-      fullName: data.fullName as string,
-      birthDate: data.dateOfBirth,
-      gender: data.gender as string,
-      mail: data.email,
-      phone: data.phone,
-      specialty: data.specialty,
-      crn: data.crn,
-    } as any;
-  }, [data]);
-
   return (
     <main className="flex flex-col w-full gap-6">
       <Title
         title="Dados pessoais"
         underlineWidth="50%"
-        showRightButton
-        rightButton={
-          data?.id && (
-            <MyDataModal
-              id={data?.id}
-              type="UPDATE"
-              values={values}
-              postAction={refetch}
-            />
-          )
-        }
+        showRightButton={false}
         onClick={() => {}}
       />
 
@@ -88,11 +51,13 @@ export function Content() {
             <LabelRow label="Telefone" value={profile?.phone || ""} />
           </div>
           <div className="flex flex-col gap-2 items-start">
-            <h3 className="text-[18px] font-semibold text-black">
-              Profissional
-            </h3>
-            <LabelRow label="Especialidade" value={profile?.specialty || ""} />
-            <LabelRow label="CRN" value={profile?.crn || ""} />
+            <h3 className="text-[18px] font-semibold text-black">Endereço</h3>
+            <LabelRow label="CEP" value={profile?.cep || ""} />
+            <LabelRow label="Estado" value={profile?.state || ""} />
+            <LabelRow label="Cidade" value={profile?.city || ""} />
+            <LabelRow label="Bairro" value={profile?.neighborhood || ""} />
+            <LabelRow label="Rua" value={profile?.street || ""} />
+            <LabelRow label="Número" value={profile?.number || ""} />
           </div>
         </div>
       )}

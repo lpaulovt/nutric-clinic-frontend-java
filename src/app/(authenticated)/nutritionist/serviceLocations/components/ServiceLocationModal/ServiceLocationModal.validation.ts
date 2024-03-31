@@ -1,8 +1,8 @@
 import * as z from "zod";
 
 export const defaultValues = {
-  fullName: "",
-  zipcode: "",
+  full_name: "",
+  cep: "",
   street: "",
   number: "",
   neighborhood: "",
@@ -11,10 +11,10 @@ export const defaultValues = {
 };
 
 export const formSchema = z.object({
-  fullName: z.string().trim().min(1, {
+  full_name: z.string().trim().min(1, {
     message: "Informe o seu nome completo",
   }),
-  zipcode: z.string().trim().min(1, {
+  cep: z.string().trim().min(1, {
     message: "Informe seu CEP",
   }),
   street: z.string().trim().min(1, {

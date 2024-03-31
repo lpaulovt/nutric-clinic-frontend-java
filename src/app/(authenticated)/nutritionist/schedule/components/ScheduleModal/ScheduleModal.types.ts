@@ -5,7 +5,7 @@ import { formSchema } from ".";
 export type TTypeForm = "CREATE" | "UPDATE";
 
 export interface FormSchema {
-  date: Date;
+  date_appointments: string;
   times: string[];
   serviceLocationId: string;
 }
@@ -19,4 +19,5 @@ export interface FormProps {
 export interface ModalProps {
   type: TTypeForm;
   values?: FormSchema;
+  postAction?: () => void;
 }

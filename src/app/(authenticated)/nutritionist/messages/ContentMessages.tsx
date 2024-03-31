@@ -15,23 +15,25 @@ export function ContentMessages() {
         title="Recados"
         underlineWidth="50%"
         showRightButton
-        rightButton={<MessageModal type="CREATE" postAction={refetch} />}
+        rightButton={
+          <MessageModal type="CREATE" postAction={() => refetch()} />
+        }
         onClick={() => {}}
       />
 
       {!isLoading && (
         <div className="w-full flex flex-row flex-wrap gap-4">
-          {data?.map((item) => (
+          {data?.results?.map((item) => (
             <CardMessage
               key={item.id}
               message={item.message}
               id={item.id}
               type="DELETE"
-              postAction={refetch}
+              postAction={() => refetch()}
             />
           ))}
 
-          {data?.length === 0 && <p>Não há recados cadastrados ainda.</p>}
+          {data?.count === 0 && <p>Não há recados cadastrados ainda.</p>}
         </div>
       )}
 

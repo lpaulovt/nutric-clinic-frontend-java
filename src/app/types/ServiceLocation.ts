@@ -1,10 +1,11 @@
 export interface IServiceLocation {
   id: number;
-  fullName: string;
+  full_name: string;
   number: string;
-  zipcode: string;
+  cep: string;
   street: string;
   neighborhood: string;
   city: string;
   state: string;
+  user: number;
 }

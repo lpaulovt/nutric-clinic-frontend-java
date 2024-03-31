@@ -1,27 +1,15 @@
 "use client";
 
+import { useFindAllMessages } from "@/app/services/messages/useFindAll";
 import { CardMessage } from "@/components/designSystem/CardMessage";
 import { Title } from "@/components/designSystem/Title";
-import { useMemo } from "react";
 
 export function MessagesSection() {
-  const data = [
-    {
-      id: 1,
-      message: "Durante os dias 01/20 estarei abrindo a agenda para consultas.",
-    },
-    {
-      id: 2,
-      message:
-        "Consultório em reforma, voltarei a atender na segunda-feira (23/12/2023)",
-    },
-  ];
+  const { data, isLoading } = useFindAllMessages();
 
-  const filteredData = useMemo(() => {
-    return data?.slice(0, 3);
-  }, [data]);
+  if (isLoading) return <></>;
 
-  if (filteredData?.length === 0) {
+  if (data?.count === 0) {
     return <></>;
   }
 
@@ -29,7 +17,7 @@ export function MessagesSection() {
     <div className="flex flex-col gap-4">
       <Title title="Recados" underlineWidth="100%" />
       <div className="flex flex-row gap-4 justify-start items-center">
-        {filteredData.map((item) => (
+        {data?.results?.map((item) => (
           <CardMessage key={item.id} {...item} />
         ))}
       </div>

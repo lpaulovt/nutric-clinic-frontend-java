@@ -1,3 +1,4 @@
+import { ListResponse } from "@/app/types/ListResponse";
 import { Message } from "@/app/types/Message";
 import useAxiosAuth from "@/lib/hooks/useAxiosAuth";
 
@@ -8,11 +9,10 @@ export const useFindAllMessages = () => {
 
   const fetchCourse = async () => {
     const response = await axiosAuth.get(`/api/MessageClinis/`);
-
     return response.data;
   };
 
-  return useQuery<Message[]>({
+  return useQuery<ListResponse<Message>>({
     queryKey: ["messages"],
     queryFn: () => fetchCourse(),
     enabled: true,

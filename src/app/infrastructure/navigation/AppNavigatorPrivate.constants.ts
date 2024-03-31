@@ -11,7 +11,7 @@ export enum PRIVATE_ROUTES {
   PATIENT_CONSULTATIONS = "patient/consultations",
   PATIENT_DIET_PLAN = "patient/dietPlan",
   PATIENT_PRESCRIPTION = "patient/prescription",
-  PATIENT_AVALIATION = "patient/prescription",
+  PATIENT_AVALIATION = "patient/avaliation",
   PATIENT_ASSESSMENT = "patient/assessment",
   PATIENT_PROFILE = "patient/profile",
 }
