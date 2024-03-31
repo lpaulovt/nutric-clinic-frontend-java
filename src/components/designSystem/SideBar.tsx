@@ -125,7 +125,6 @@ const SideBar = ({}: SideBarProps) => {
           function handleOnClick() {
             return goToPage(route);
           }
-          console.log("currentPage === `/${route}`", currentPage, `/${route}`);
 
           return (
             <div key={id} className="group  w-full h-9 ">

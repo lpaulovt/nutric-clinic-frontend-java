@@ -1,22 +1,33 @@
 "use client";
 
-import { createContext, ReactNode, useMemo } from "react";
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useMemo,
+  useState,
+} from "react";
 
 import Profile from "@/app/types/Profile";
 import { ProfileTypeEnum } from "@/app/types/User";
 
 type AuthContextData = {
+  refreshToken: string;
   token: string;
   profile: Profile | null;
   id: any;
   isNutricionist: boolean;
   isPatient: boolean;
+  setRefreshToken: Dispatch<SetStateAction<string>>;
+  setToken: Dispatch<SetStateAction<string>>;
 };
 
 type Props = {
   children: ReactNode;
   data: {
     token: string;
+    refreshToken: string;
     profile: Profile | null;
     id: any;
   };
@@ -25,6 +36,9 @@ type Props = {
 export const AuthContext = createContext({} as AuthContextData);
 
 export const AuthProvider = ({ children, data }: Props) => {
+  const [token, setToken] = useState(data.token);
+  const [refreshToken, setRefreshToken] = useState(data.refreshToken);
+
   const isNutricionist = useMemo(() => {
     return data.profile?.type === ProfileTypeEnum.nutritionist;
   }, []);
@@ -37,10 +51,13 @@ export const AuthProvider = ({ children, data }: Props) => {
     <AuthContext.Provider
       value={{
         profile: data.profile,
-        token: data.token,
+        token: token,
+        refreshToken: refreshToken,
         id: data.id,
         isNutricionist,
         isPatient,
+        setRefreshToken,
+        setToken,
       }}
     >
       {children}

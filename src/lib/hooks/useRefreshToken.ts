@@ -1,18 +1,15 @@
-'use client'
+"use client";
 
-import axios from '../axios'
-import { signIn, useSession } from 'next-auth/react'
+import { axiosInstace } from "../axios";
 
-export const useRefreshToken = () => {
-  const { data: session } = useSession()
-
+export const useRefreshToken = (refresh: string, id: number) => {
   const refreshToken = async () => {
-    const res = await axios.post('/api/token/refresh/', {
-      refresh: session?.refresh,
-    })
+    const res = await axiosInstace.post("/api/token-refresh/", {
+      refresh: refresh,
+      id: id,
+    });
 
-    if (session) session.access = res.data.accessToken
-    else signIn()
-  }
-  return refreshToken
-}
+    return res;
+  };
+  return refreshToken;
+};

@@ -20,6 +20,7 @@ export async function getUser() {
 
   const user = {
     token: session.access,
+    refreshToken: session.refresh,
     ...decodedToken,
     id: decodedToken.user_id,
     profile: profile.data as Profile,

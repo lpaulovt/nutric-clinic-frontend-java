@@ -14,11 +14,11 @@ interface AppLayoutProps {
 
 export default async function AppLayout({ children }: AppLayoutProps) {
   const hasAuthenticated = await getServerSession(nextAuthOptions);
-  const { profile, token, id } = await getUser();
+  const { profile, token, id, refreshToken } = await getUser();
 
   if (!hasAuthenticated) redirect("/");
   return (
-    <AuthProvider data={{ profile: profile, token: token, id: id }}>
+    <AuthProvider data={{ profile, token, id, refreshToken }}>
       <div className="flex flex-col min-w-screen max-h-screen overflow-hidden">
         <Header />
 
