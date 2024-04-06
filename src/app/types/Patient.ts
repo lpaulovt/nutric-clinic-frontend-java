@@ -1,7 +1,17 @@
 export interface IPatient {
   id: string;
-  cpf: string;
   name: string;
-  age: string;
-  status: "ACTIVE" | "INACTIVE";
+  age: number;
+  gender: string;
+  phone: string;
+  cpf: string;
+  status: string;
+}
+
+export interface PatientsListResponse {
+  patients: IPatient[];
+}
+
+export interface PatientResponse {
+  patient: IPatient;
 }

@@ -16,23 +16,58 @@ import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
 import { PatientModalProps, formSchema } from ".";
 import { PatientForm } from "./PatientModal.form";
+import { useCreatePatient } from "@/app/services/patient/useCreate";
+import { ErrorHandler } from "@/utils/errorHandler";
+import { IPatient } from "@/app/types/Patient";
+import { usePatchPatient } from "@/app/services/patient/usePatch";
+import { useData } from "@/app/hooks/useData";
 
-export function PatientModal({ type = "CREATE", values }: PatientModalProps) {
+export function PatientModal({
+  type = "CREATE",
+  values,
+  onSuccess,
+}: PatientModalProps) {
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
-
+  const { patient } = useData();
+  const { mutateAsync: createPatient } = useCreatePatient();
+  const { mutateAsync: updatePatient } = usePatchPatient(patient.id);
   const handleShow = () => {
     setOpen((value) => !value);
   };
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log(values);
 
-    toast({
-      title: "Cadastro realizado com sucesso",
-      description:
-        "Paciente cadastro com sucesso, agora você pode cadastrar plano alimentar, fazer receitas e inserir  avaliações antoprométicas",
-    });
+    try {
+      const dataRequest = {
+        name: values.name,
+        age: values.age,
+        gender: values.gender,
+        phone: values.phone,
+        cpf: values.cpf,
+        status: "ativo",
+      } as Partial<IPatient>;
+
+      if (type === "CREATE") {
+        await createPatient(dataRequest);
+        toast({
+          title: "Cadastro realizado com sucesso",
+          description:
+            "Paciente cadastro com sucesso, agora você pode cadastrar plano alimentar, fazer receitas e inserir  avaliações antoprométicas",
+        });
+      } else {
+        await updatePatient(dataRequest);
+        toast({
+          title: "Paciente atualizado",
+        });
+      }
+
+      onSuccess && onSuccess();
+    } catch (error) {
+      ErrorHandler(error);
+    }
+
     handleShow();
   };
 

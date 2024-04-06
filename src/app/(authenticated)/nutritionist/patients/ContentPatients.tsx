@@ -2,21 +2,23 @@
 
 import { EmptyState } from "@/components/designSystem/EmptyState";
 import { Title } from "@/components/designSystem/Title";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { patientData } from "@/mock";
 import peopleIllustration from "@/assets/peopleIllustration.svg";
 import { PatientShortcut } from "@/components/designSystem/PatientShortcut";
 import { IPatient } from "@/app/types/Patient";
 import { PatientModal } from "./components/PatientModal/PatientModal.component";
 import { useRouter } from "next/navigation";
-import { PRIVATE_ROUTES } from "@/app/infrastructure/navigation";
+import { useFindAllPatients } from "@/app/services/patient/useFindAll";
+import { Spin } from "@/components/designSystem/Spin";
+import { useData } from "@/app/hooks/useData";
 
 export function ContentPatients() {
   const router = useRouter();
+  const { setPatient } = useData();
+  const { data, isLoading, refetch } = useFindAllPatients();
 
   const handlePatientDetails = (patient: IPatient) => {
-    console.log(patient);
-    router.push(`${PRIVATE_ROUTES.NUTRITIONIST_PATIENTS}/${patient.id}`);
+    setPatient(patient);
+    router.push(`patients/${patient.id}`);
   };
 
   return (
@@ -25,20 +27,14 @@ export function ContentPatients() {
         title="Pacientes"
         underlineWidth="50%"
         showRightButton
-        rightButton={<PatientModal type="CREATE" />}
+        rightButton={<PatientModal type="CREATE" onSuccess={() => refetch()} />}
         onClick={() => {}}
       />
 
-      <Tabs defaultValue="ALL" className="w-[400px]">
-        <TabsList>
-          <TabsTrigger value="ALL">Todos</TabsTrigger>
-          <TabsTrigger value="ACTIVE">Ativos</TabsTrigger>
-          <TabsTrigger value="INACTIVE">Inativos</TabsTrigger>
-        </TabsList>
-      </Tabs>
-
       <div className="w-full flex flex-row flex-wrap gap-4">
-        {patientData?.length === 0 && (
+        {isLoading && <Spin />}
+
+        {!isLoading && data?.patients?.length === 0 && (
           <EmptyState
             imageSrc={peopleIllustration}
             messageFirstPart="Você ainda não possui pacientes, "
@@ -48,12 +44,14 @@ export function ContentPatients() {
           />
         )}
 
-        {patientData?.length !== 0 &&
-          patientData.map((item) => (
+        {!isLoading &&
+          data?.patients?.length !== 0 &&
+          data?.patients.map((item) => (
             <PatientShortcut
               onClick={handlePatientDetails}
-              key={item.patient.cpf}
-              {...item}
+              key={item.id}
+              patient={item}
+              showAge
             />
           ))}
       </div>

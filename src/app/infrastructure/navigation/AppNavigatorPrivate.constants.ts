@@ -1,7 +1,7 @@
 export enum PRIVATE_ROUTES {
   INITIAL = "initial",
   NUTRITIONIST_HOME = "nutritionist/home",
-  NUTRITIONIST_PATIENTS = "nutritionist/patients",
+  NUTRITIONIST_PATIENTS = "/patients",
   NUTRITIONIST_MESSAGE = "nutritionist/messages",
   NUTRITIONIST_CONSULTATIONS = "nutritionist/consultations",
   NUTRITIONIST_SCHEDULE = "nutritionist/schedule",

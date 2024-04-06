@@ -15,7 +15,7 @@ export function PatientShortcut({
   showAge,
   onClick,
 }: PatientShortcutProps) {
-  const isActive = patient.status === "ACTIVE";
+  const isActive = patient.status === "ativo";
 
   return (
     <div

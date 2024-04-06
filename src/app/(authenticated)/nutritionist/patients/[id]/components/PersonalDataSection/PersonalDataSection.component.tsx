@@ -5,15 +5,23 @@ import { PatientModal } from "../../../components/PatientModal";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { getInitialLetters } from "@/utils/getInitialLetters";
 import { LabelRow } from "@/components/designSystem/LabelRow";
+import { useData } from "@/app/hooks/useData";
 
-export function PersonalDataSection() {
+interface PersonalDataSectionProps {
+  onSuccess?: () => void;
+}
+
+export function PersonalDataSection({ onSuccess }: PersonalDataSectionProps) {
+  const { patient } = useData();
   return (
     <div className="flex flex-col gap-4">
       <Title
         title="Dados Pessoais"
         underlineWidth="50%"
         showRightButton
-        rightButton={<PatientModal type="UPDATE" />}
+        rightButton={
+          <PatientModal type="UPDATE" values={patient} onSuccess={onSuccess} />
+        }
         onClick={() => {}}
       />
       <div className="flex flex-row items-center gap-6">
@@ -23,27 +31,22 @@ export function PersonalDataSection() {
               true ? "bg-brand" : "bg-gray400"
             }`}
           >
-            {getInitialLetters("Paulo Vitor")}
+            {getInitialLetters(patient.name)}
           </AvatarFallback>
         </Avatar>
 
         <div className="flex flex-col gap-2">
           <h3 className="text-[18px] font-semibold text-black">
-            Paulo Vitor Lopes da Silva
+            {patient.name}
           </h3>
           <div className="flex flex-row gap-4">
             <div>
-              <LabelRow label="Idade:" value="22 anos" />
-              <LabelRow label="Sexo:" value="Masculino" />
-              <LabelRow label="CPF:" value="123.123.123-12" />
+              <LabelRow label="Idade:" value={`${patient.age} anos`} />
+              <LabelRow label="Sexo:" value={patient.gender} />
+              <LabelRow label="CPF:" value={patient.cpf} />
             </div>
             <div>
-              <LabelRow label="E-mail:" value="paulo@gmail.com" />
-              <LabelRow label="Telefone:" value="(84) 99999-9999" />
-              <LabelRow
-                label="Endereço:"
-                value="Rua, 12, bairro, São Miguel/RN"
-              />
+              <LabelRow label="Telefone:" value={patient.phone} />
             </div>
           </div>
         </div>

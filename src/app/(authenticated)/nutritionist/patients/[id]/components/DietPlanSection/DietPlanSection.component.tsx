@@ -5,10 +5,13 @@ import { PieChart } from "lucide-react";
 import { ListItem } from "@/components/designSystem/ListItem";
 import { DietPlanModal } from "../../../components/DietPlanModal";
 import { useRouter } from "next/navigation";
+import { useData } from "@/app/hooks/useData";
 
-export function DietPlanSection() {
+interface DietPlanSectionProps {}
+
+export function DietPlanSection({}: DietPlanSectionProps) {
   const router = useRouter();
-
+  const {} = useData();
   const handleDietPlanDetails = () => {
     router.push(`dietPlan/10`);
   };

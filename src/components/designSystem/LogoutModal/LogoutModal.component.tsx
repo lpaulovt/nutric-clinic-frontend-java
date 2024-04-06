@@ -30,7 +30,12 @@ export function LogoutModal({ onLogout }: ModalProps) {
 
   return (
     <Dialog open={open}>
-      <DialogTrigger asChild onClick={handleShow} className="cursor-pointer">
+      <DialogTrigger
+        disabled
+        asChild
+        onClick={handleShow}
+        className="cursor-pointer"
+      >
         <button
           className={`group w-full h-9 flex gap-2 items-center px-3 rounded-md py-0.5 transition-all hover:bg-brand`}
         >

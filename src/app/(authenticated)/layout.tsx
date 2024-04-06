@@ -2,23 +2,15 @@ import { ReactNode } from "react";
 
 import { Header } from "@/components/designSystem/Header";
 import SideBar from "@/components/designSystem/SideBar";
-import { AuthProvider } from "./context/AuthProvider";
-import { getServerSession } from "next-auth";
-import { getUser } from "@/lib/auth";
-import { nextAuthOptions } from "../api/auth/[...nextauth]/route";
-import { redirect } from "next/navigation";
+import { DataProvider } from "../context/DataProvider";
 
 interface AppLayoutProps {
   children: ReactNode;
 }
 
 export default async function AppLayout({ children }: AppLayoutProps) {
-  const hasAuthenticated = await getServerSession(nextAuthOptions);
-  const { profile, token, id, refreshToken } = await getUser();
-
-  if (!hasAuthenticated) redirect("/");
   return (
-    <AuthProvider data={{ profile, token, id, refreshToken }}>
+    <DataProvider>
       <div className="flex flex-col min-w-screen max-h-screen overflow-hidden">
         <Header />
 
@@ -28,6 +20,6 @@ export default async function AppLayout({ children }: AppLayoutProps) {
           <main className=" w-full px-6 py-10 overflow-y-auto">{children}</main>
         </div>
       </div>
-    </AuthProvider>
+    </DataProvider>
   );
 }

@@ -5,8 +5,6 @@ import dynamicIconImports from "lucide-react/dynamicIconImports";
 import { PRIVATE_ROUTES } from "@/app/infrastructure/navigation";
 import { LogoutModal } from "./LogoutModal";
 import { signOut } from "next-auth/react";
-import { useAuth } from "@/app/(authenticated)/hooks/useAuth";
-import { useMemo } from "react";
 
 interface SideBarProps {}
 
@@ -14,7 +12,6 @@ const SideBar = ({}: SideBarProps) => {
   const pathname = usePathname();
   const currentPage = pathname;
 
-  const { isNutricionist } = useAuth();
   const router = useRouter();
 
   const goToPage = (route: string) => {
@@ -74,54 +71,10 @@ const SideBar = ({}: SideBarProps) => {
     },
   ];
 
-  const patientMenuOptions = [
-    {
-      id: 1,
-      title: "Tela inicial",
-      route: PRIVATE_ROUTES.PATIENT_HOME,
-      icon: "home",
-    },
-    {
-      id: 2,
-      title: "Consultas",
-      route: PRIVATE_ROUTES.PATIENT_CONSULTATIONS,
-      icon: "calendar-heart",
-    },
-    {
-      id: 3,
-      title: "Plano alimentar",
-      route: PRIVATE_ROUTES.PATIENT_DIET_PLAN,
-      icon: "pie-chart",
-    },
-    {
-      id: 4,
-      title: "Receitas",
-      route: PRIVATE_ROUTES.PATIENT_PRESCRIPTION,
-      icon: "file-heart",
-    },
-    {
-      id: 5,
-      title: "Avaliações",
-      route: PRIVATE_ROUTES.PATIENT_AVALIATION,
-      icon: "ruler",
-    },
-    {
-      id: 5,
-      title: "Meu Perfil",
-      route: PRIVATE_ROUTES.PATIENT_PROFILE,
-      icon: "user",
-    },
-  ];
-
-  const menuOptions = useMemo(() => {
-    if (isNutricionist) return nutricionistMenuOptions;
-
-    return patientMenuOptions;
-  }, [isNutricionist]);
   return (
     <nav className="mt-10 mb-10">
       <div className="w-full h-full flex flex-col gap-2 items-center justify-start border-r border-solid border-border px-5 ">
-        {menuOptions.map(({ title, route, icon, id }) => {
+        {nutricionistMenuOptions.map(({ title, route, icon, id }) => {
           function handleOnClick() {
             return goToPage(route);
           }
@@ -129,6 +82,7 @@ const SideBar = ({}: SideBarProps) => {
           return (
             <div key={id} className="group  w-full h-9 ">
               <button
+                disabled
                 className={` w-full h-9 flex gap-2 items-center px-3 rounded-md py-0.5 transition-all ${
                   currentPage === `/${route}` && "bg-brand"
                 } group-hover:bg-brand`}

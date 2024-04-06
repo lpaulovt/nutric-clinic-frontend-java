@@ -1,58 +1,28 @@
 import * as z from "zod";
 
 export const defaultValues = {
-  fullName: "",
+  name: "",
   gender: "",
   mail: "",
   phone: "",
-  zipcode: "",
-  street: "",
-  number: "",
-  neighborhood: "",
-  city: "",
-  state: "",
-  observation: "",
+  age: 0,
+  cpf: "",
 };
 
 export const formSchema = z.object({
-  fullName: z.string().trim().min(1, {
+  name: z.string().trim().min(1, {
     message: "Informe o seu nome completo",
   }),
-  birthDate: z.date({
-    required_error: "Informe sua data",
+  age: z.coerce.number().min(1, {
+    message: "Informe a idade",
   }),
   gender: z.string().trim().min(1, {
     message: "Informe seu sexo",
   }),
-  mail: z
-    .string()
-    .trim()
-    .email({
-      message: "E-mail inválido",
-    })
-    .min(1, {
-      message: "Informe seu email",
-    }),
   phone: z.string().trim().min(1, {
     message: "Informe seu telefone",
   }),
-  zipcode: z.string().trim().min(1, {
-    message: "Informe seu CEP",
+  cpf: z.string().trim().min(1, {
+    message: "Informe seu CPF",
   }),
-  street: z.string().trim().min(1, {
-    message: "Informe sua rua",
-  }),
-  number: z.string().trim().min(1, {
-    message: "Informe seu número",
-  }),
-  neighborhood: z.string().trim().min(1, {
-    message: "Informe seu bairro",
-  }),
-  city: z.string().trim().min(1, {
-    message: "Informe sua cidade",
-  }),
-  state: z.string().trim().min(1, {
-    message: "Informe seu estado",
-  }),
-  observation: z.string(),
 });

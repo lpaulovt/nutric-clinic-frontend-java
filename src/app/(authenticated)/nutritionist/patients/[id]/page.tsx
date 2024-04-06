@@ -1,5 +1,12 @@
 import { ContentPatientDetails } from "./ContentPatientDetails";
 
-export default async function PatientScreen() {
-  return <ContentPatientDetails />;
+interface PatientScreen {
+  params: {
+    id: string;
+  };
+}
+export default async function PatientScreen(props: PatientScreen) {
+  const { params } = props;
+
+  return <ContentPatientDetails id={params.id} />;
 }

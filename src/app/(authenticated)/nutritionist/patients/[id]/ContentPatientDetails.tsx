@@ -1,19 +1,37 @@
 "use client";
 
-import { AssessmentSection } from "./components/AssessmentSection";
+import { useFindOnePatient } from "@/app/services/patient/useFindOne";
 import { DietPlanSection } from "./components/DietPlanSection";
 import { PersonalDataSection } from "./components/PersonalDataSection";
-import { PrescriptionSection } from "./components/PrescriptionSection";
 import { StatusSection } from "./components/StatusSection";
+import { Spin } from "@/components/designSystem/Spin";
+import { useEffect } from "react";
+import { useData } from "@/app/hooks/useData";
 
-export function ContentPatientDetails() {
+interface ContentPatientDetailsProps {
+  id: string;
+}
+
+export function ContentPatientDetails({ id }: ContentPatientDetailsProps) {
+  const { data, isLoading, refetch } = useFindOnePatient(id || "");
+  const { setPatient, patient } = useData();
+
+  useEffect(() => {
+    if (!data) return;
+
+    setPatient(data.patient);
+  }, [data]);
+
   return (
-    <main className="flex flex-col w-full gap-6">
-      <PersonalDataSection />
-      <StatusSection />
-      <DietPlanSection />
-      <AssessmentSection />
-      <PrescriptionSection />
-    </main>
+    <>
+      {isLoading && <Spin />}
+      {!isLoading && patient && (
+        <main className="flex flex-col w-full gap-6">
+          <PersonalDataSection onSuccess={() => refetch()} />
+          <StatusSection onSuccess={() => refetch()} />
+          <DietPlanSection />
+        </main>
+      )}
+    </>
   );
 }

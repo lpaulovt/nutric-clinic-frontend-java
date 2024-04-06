@@ -16,4 +16,5 @@ export interface FormProps {
 
 export interface ModalProps {
   values?: FormSchema;
+  onSuccess?: () => void;
 }

@@ -44,13 +44,13 @@ export function StatusModalForm({ onSubmit, onClose, values }: FormProps) {
                 >
                   <FormItem className="flex items-center space-x-3 space-y-0">
                     <FormControl>
-                      <RadioGroupItem value="ACTIVE" />
+                      <RadioGroupItem value="ativo" />
                     </FormControl>
                     <FormLabel className="font-normal">Ativar</FormLabel>
                   </FormItem>
                   <FormItem className="flex items-center space-x-3 space-y-0">
                     <FormControl>
-                      <RadioGroupItem value="INACTIVE" />
+                      <RadioGroupItem value="inativo" />
                     </FormControl>
                     <FormLabel className="font-normal">Inativar</FormLabel>
                   </FormItem>

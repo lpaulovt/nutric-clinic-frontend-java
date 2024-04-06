@@ -5,18 +5,12 @@ import { formSchema } from ".";
 export type TTypeForm = "CREATE" | "UPDATE";
 
 export interface FormSchema {
-  number: string;
-  fullName: string;
-  birthDate: Date;
+  name: string;
+  age: number;
   gender: string;
-  mail: string;
   phone: string;
-  zipcode: string;
-  street: string;
-  neighborhood: string;
-  city: string;
-  state: string;
-  observation: string;
+  cpf: string;
+  status: string;
 }
 
 export interface FormProps {
@@ -28,4 +22,5 @@ export interface FormProps {
 export interface PatientModalProps {
   type: TTypeForm;
   values?: FormSchema;
+  onSuccess?: () => void;
 }
