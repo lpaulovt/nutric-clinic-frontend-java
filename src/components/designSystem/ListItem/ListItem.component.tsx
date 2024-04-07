@@ -1,7 +1,6 @@
 "use client";
 
 import { Status } from "@/components/designSystem/Status";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ChevronRight } from "lucide-react";
 import { LabelColumn } from "@/components/designSystem/LabelColumn";
 import { ListItemProps } from ".";
@@ -35,7 +34,7 @@ export function ListItem({
       ) : (
         <div className="flex flex-row gap-6 items-center">
           {status !== undefined && (
-            <Status status={status ? "ACTIVE" : "INACTIVE"} />
+            <Status status={status ? "ativo" : "inativo"} />
           )}
           <ChevronRight className={` ${chevronColor} `} />
         </div>

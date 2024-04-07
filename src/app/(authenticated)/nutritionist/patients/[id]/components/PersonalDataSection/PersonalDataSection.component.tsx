@@ -24,7 +24,7 @@ export function PersonalDataSection({ onSuccess }: PersonalDataSectionProps) {
         }
         onClick={() => {}}
       />
-      <div className="flex flex-row items-center gap-6">
+      <div className="flex flex-row items-center gap-6 gap-2 flex-wrap">
         <Avatar className="w-[100px] h-[100px] bg-brand">
           <AvatarFallback
             className={`text-white text-[32px] font-bold ${
@@ -35,11 +35,11 @@ export function PersonalDataSection({ onSuccess }: PersonalDataSectionProps) {
           </AvatarFallback>
         </Avatar>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 flex-wrap">
           <h3 className="text-[18px] font-semibold text-black">
             {patient.name}
           </h3>
-          <div className="flex flex-row gap-4">
+          <div className="flex flex-row gap-4 gap-2 flex-wrap">
             <div>
               <LabelRow label="Idade:" value={`${patient.age} anos`} />
               <LabelRow label="Sexo:" value={patient.gender} />

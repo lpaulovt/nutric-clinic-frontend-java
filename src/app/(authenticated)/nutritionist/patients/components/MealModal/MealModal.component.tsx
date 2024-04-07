@@ -16,22 +16,55 @@ import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
 import { ModalProps, formSchema } from ".";
 import { MealForm } from "./MealModal.form";
+import { useCreateMeal } from "@/app/services/meal/useCreate";
+import { usePatchMeal } from "@/app/services/meal/usePatch";
+import { IMeal } from "@/app/types/Meal";
+import { ErrorHandler } from "@/utils/errorHandler";
 
-export function MealModal({ values, type }: ModalProps) {
+export function MealModal({
+  values,
+  type,
+  onSuccess,
+  mealPlanId,
+  mealId,
+}: ModalProps) {
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
+  const { mutateAsync: createMeal } = useCreateMeal();
+  const { mutateAsync: updateMeal } = usePatchMeal(mealId);
 
   const handleShow = () => {
     setOpen((value) => !value);
   };
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+  const onSubmit = async (value: z.infer<typeof formSchema>) => {
+    console.log(value);
 
-    toast({
-      title: "Tudo pronto!",
-      description: "Refeição cadastrada com sucesso.",
-    });
+    try {
+      const dataRequest = {
+        name: value.name,
+        time: value.time,
+        mealPlanId,
+      } as Partial<IMeal>;
+
+      if (type === "CREATE") {
+        await createMeal(dataRequest);
+
+        toast({
+          title: "Tudo pronto!",
+          description: "Refeição cadastrada com sucesso.",
+        });
+      } else {
+        await updateMeal(dataRequest);
+        toast({
+          title: "Refeição atualizada",
+        });
+      }
+    } catch (error) {
+      ErrorHandler(error);
+    }
+    onSuccess && onSuccess();
+
     handleShow();
   };
 

@@ -6,14 +6,17 @@ import { ListItem } from "@/components/designSystem/ListItem";
 import { DietPlanModal } from "../../../components/DietPlanModal";
 import { useRouter } from "next/navigation";
 import { useData } from "@/app/hooks/useData";
+import { useFindAllMealPlans } from "@/app/services/mealPlan/useFindAll";
+import { Spin } from "@/components/designSystem/Spin";
 
 interface DietPlanSectionProps {}
 
 export function DietPlanSection({}: DietPlanSectionProps) {
   const router = useRouter();
-  const {} = useData();
-  const handleDietPlanDetails = () => {
-    router.push(`dietPlan/10`);
+  const { patient } = useData();
+  const { data, isLoading, refetch } = useFindAllMealPlans(patient.id);
+  const handleDietPlanDetails = (id: string) => {
+    router.push(`dietPlan/${id}`);
   };
 
   return (
@@ -22,37 +25,32 @@ export function DietPlanSection({}: DietPlanSectionProps) {
         title="Plano alimentar"
         underlineWidth="50%"
         showRightButton
-        rightButton={<DietPlanModal type="CREATE" />}
+        rightButton={
+          <DietPlanModal type="CREATE" onSuccess={() => refetch()} />
+        }
       />
 
       <div className="flex flex-col">
-        <ListItem
-          icon={<PieChart className="text-white" />}
-          iconBgColor="bg-brand"
-          chevronColor="text-brand"
-          title="Plano alimentar para Paulo"
-          subtitle="Todos os dias"
-          status={false}
-          onClick={handleDietPlanDetails}
-        />
-
-        <ListItem
-          icon={<PieChart className="text-white" />}
-          iconBgColor="bg-brand"
-          chevronColor="text-brand"
-          title="Plano alimentar para Paulo"
-          subtitle="Todos os dias"
-        />
-
-        <ListItem
-          icon={<PieChart className="text-white" />}
-          iconBgColor="bg-brand"
-          chevronColor="text-brand"
-          title="Plano alimentar para Paulo"
-          subtitle="Todos os dias"
-          status={true}
-          onClick={handleDietPlanDetails}
-        />
+        {isLoading && <Spin />}
+        {!isLoading && data?.mealPlans.length === 0 && (
+          <p>
+            Não há planos cadastrados ainda. Clique no ícone de (+) para
+            cadastrar um novo.
+          </p>
+        )}
+        {!isLoading &&
+          data?.mealPlans.map((item) => (
+            <ListItem
+              key={item.id}
+              icon={<PieChart className="text-white" />}
+              iconBgColor="bg-brand"
+              chevronColor="text-brand"
+              title={item.name}
+              subtitle={item.daysOfWeek}
+              status={item.status === "ativo" ? true : false}
+              onClick={() => handleDietPlanDetails(item.id)}
+            />
+          ))}
       </div>
     </div>
   );

@@ -1,27 +1,27 @@
-import { toast } from '@/components/ui/use-toast'
-import axios from 'axios'
+import { toast } from "@/components/ui/use-toast";
+import axios from "axios";
 
 export function ErrorHandler(error: unknown) {
-  console.error(error)
-  const defaultErrorMessage = 'Ocorreu um erro. Tente novamente.'
+  console.error(error);
+  const defaultErrorMessage = "Ocorreu um erro. Tente novamente.";
 
   if (axios.isAxiosError(error)) {
-    const errors = error.response?.data?.errors
-    const arr = []
+    const errors = error.response?.data.message;
+    const arr = [];
 
     for (const key in errors) {
-      arr.push(errors[key])
+      arr.push(errors[key]);
     }
     toast({
-      title: 'Ops!',
+      title: "Ops!",
       description: arr[0] || defaultErrorMessage,
-      variant: 'destructive',
-    })
+      variant: "destructive",
+    });
   } else {
     toast({
-      title: 'Ops!',
+      title: "Ops!",
       description: defaultErrorMessage,
-      variant: 'destructive',
-    })
+      variant: "destructive",
+    });
   }
 }
