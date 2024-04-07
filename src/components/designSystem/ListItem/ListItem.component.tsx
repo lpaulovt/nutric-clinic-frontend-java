@@ -27,14 +27,20 @@ export function ListItem({
           {icon}
         </div>
 
-        <LabelColumn label={title} value={subtitle} />
+        <LabelColumn
+          label={title}
+          value={subtitle}
+          status={status ? "ativo" : "inativo"}
+        />
       </div>
       {rightContent ? (
         rightContent
       ) : (
         <div className="flex flex-row gap-6 items-center">
           {status !== undefined && (
-            <Status status={status ? "ativo" : "inativo"} />
+            <div className="hidden sm:flex">
+              <Status status={status ? "ativo" : "inativo"} />
+            </div>
           )}
           <ChevronRight className={` ${chevronColor} `} />
         </div>

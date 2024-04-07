@@ -35,7 +35,7 @@ export function DietPlanDetails({ id }: DietPlanDetailsProps) {
             <LabelRow label="Status:" value={data.status} />
           </div>
 
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 pb-3">
             <Title title="Dias da semana" showRightButton={false} />
 
             <Tabs defaultValue="ALL" className="flex flex-row justify-start">
