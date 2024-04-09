@@ -106,7 +106,7 @@ export function DietPlanDetails({ id }: DietPlanDetailsProps) {
                   mealPlanId={data.id}
                   type="CREATE"
                   mealId="0"
-                  onSuccess={() => refetch()}
+                  onSuccess={() => refetchMeals()}
                 />
               }
             />
